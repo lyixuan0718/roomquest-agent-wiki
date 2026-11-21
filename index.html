@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RoomQuest Agent Wiki：以課堂資料建立的 LLM Wiki、教學 HTML 簡報與 workflow。">
+  <title>RoomQuest Agent Wiki</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">RoomQuest Agent Wiki<small>WEEK 10 · LLM WIKI × HTML SLIDES</small></a>
+    <nav class="site-nav" aria-label="主要導覽">
+      <a href="index.html" aria-current="page">首頁</a><a href="wiki/">Wiki</a><a href="slides.html">教學簡報</a><a href="workflow.html">流程與紀錄</a><a href="https://github.com/lyixuan0718/roomquest-agent-wiki">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <div>
+        <p class="eyebrow">一份從資料走到教學的實驗</p>
+        <h1>AI 如何把真實空間，變成<span class="mark">可驗證</span>的解謎遊戲？</h1>
+        <p class="lead">我先把 6 份課堂資料整理成 LLM Wiki，再以 RoomQuest 為案例，做成一份能翻頁、能追來源的教學 HTML 簡報。</p>
+        <div class="actions"><a class="btn" href="slides.html">開始 10 頁教學</a><a class="btn secondary" href="wiki/">先看 Wiki</a></div>
+      </div>
+      <div class="hero-sketch" aria-label="教室場景示意圖">
+        <div class="callout one">線索：找到窗邊可以裝水的紅色物品</div>
+        <div class="photo-frame"><div class="room"><div class="board"><i class="paper"></i><i class="paper"></i><i class="paper"></i></div><i class="chair c1"></i><i class="chair c2"></i><i class="chair c3"></i><i class="bottle"></i></div></div>
+        <div class="callout two">不是讓 AI 自由猜，而是留下能檢查的條件。</div>
+      </div>
+    </section>
+
+    <section class="section"><div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">三個成果，同一條知識鏈</p><h2>這不只是一份簡報</h2></div><p class="section-note">每張投影片都能回到 Wiki 條目；每個 Wiki 條目又能回到 ingest 的課程資料。</p></div>
+      <div class="cards">
+        <article class="card"><span class="num">01</span><h3>RoomQuest LLM Wiki</h3><p>六個可重複使用的知識單元：Context、場景 JSON、Planning、Verifier、Reflection 與人工核准。</p><a class="card-link" href="wiki/">打開知識庫</a></article>
+        <article class="card"><span class="num">02</span><h3>教學 HTML 簡報</h3><p>十頁初學者教學。使用左右鍵翻頁，案例與圖解會逐步揭示，不是把筆記塞進投影片。</p><a class="card-link" href="slides.html">進入簡報模式</a></article>
+        <article class="card"><span class="num">03</span><h3>Loop / Graph 紀錄</h3><p>呈現取得、整理、檢查、生成與重做的節點，並保留第一次執行真正遇到的問題。</p><a class="card-link" href="workflow.html">查看流程與反思</a></article>
+      </div>
+    </div></section>
+
+    <section class="section"><div class="wrap">
+      <div class="fact-strip"><div class="fact"><strong>6</strong><span>份資料完成 ingest</span></div><div class="fact"><strong>6</strong><span>個 Wiki 知識單元</span></div><div class="fact"><strong>10</strong><span>張可追溯投影片</span></div></div>
+    </div></section>
+
+    <section class="section"><div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">不是黑盒子</p><h2>來源與成果的對應</h2></div><p class="section-note">下面只列出重點；完整的逐頁對應記錄在 repository 的 <code>data/slide-map.json</code>。</p></div>
+      <div style="overflow-x:auto"><table class="trace-table"><thead><tr><th>課程資料</th><th>整理成 Wiki</th><th>用在哪些教學概念</th></tr></thead><tbody>
+        <tr><td>S01 讓 AI 看懂你的世界</td><td><span class="tag">W01</span><span class="tag">W02</span></td><td>Context、Grounding、場景資料</td></tr>
+        <tr><td>S02 教 AI 做事的方法</td><td><span class="tag">W02</span><span class="tag">W03</span><span class="tag">W04</span><span class="tag">W05</span></td><td>JSON、Planning、Tool Use、Reflection</td></tr>
+        <tr><td>S03 換你當老闆</td><td><span class="tag">W04</span><span class="tag">W06</span></td><td>Model + Harness、規則與人工出口</td></tr>
+        <tr><td>S04–S06 三份 Notebook</td><td><span class="tag">W01</span><span class="tag">W03</span><span class="tag">W05</span><span class="tag">W06</span></td><td>兩階段規劃、修改迴圈、RAG 可追溯性</td></tr>
+      </tbody></table></div>
+    </div></section>
+  </main>
+  <footer class="footer"><div class="wrap">B1228010 · 長庚 AI 四 · 李怡萱｜第十週作業：LLM Wiki 與教學 HTML 簡報</div></footer>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "project": "RoomQuest Agent Wiki",
+  "ingest_count": 6,
+  "sources": [
+    {
+      "id": "S01",
+      "title": "07 讓 AI 看懂你的世界",
+      "type": "課堂講義 PDF",
+      "focus": ["Context Engineering", "RAG", "檢索與上下文"],
+      "used_in": ["W01", "W02"],
+      "note": "課程提供；本專案僅整理概念，不重製原檔。"
+    },
+    {
+      "id": "S02",
+      "title": "08 教 AI 做事的方法",
+      "type": "課堂講義 PDF",
+      "focus": ["Tool Use", "Planning", "Reflection", "JSON"],
+      "used_in": ["W02", "W03", "W04", "W05"]
+    },
+    {
+      "id": "S03",
+      "title": "09 換你當老闆",
+      "type": "課堂講義 PDF",
+      "focus": ["AI Model + Harness", "規則檔", "Agentic workflow"],
+      "used_in": ["W04", "W06"]
+    },
+    {
+      "id": "S04",
+      "title": "Demo07a AI 代理設計模式：Reflection",
+      "type": "課堂 Notebook",
+      "url": "https://colab.research.google.com/github/yenlung/AI-Demo/blob/master/%E3%80%90Demo07a%E3%80%91AI%E4%BB%A3%E7%90%86%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F_Reflection.ipynb",
+      "focus": ["作者", "審查者", "依建議重寫"],
+      "used_in": ["W05"]
+    },
+    {
+      "id": "S05",
+      "title": "Demo07c Two-Stage CoT",
+      "type": "課堂 Notebook",
+      "url": "https://colab.research.google.com/github/yenlung/AI-Demo/blob/master/%E3%80%90Demo07c%E3%80%91AI%E4%BB%A3%E7%90%86%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F_%E5%93%A1%E7%91%9B%E5%BC%8F%E6%80%9D%E8%80%83%E7%94%9F%E6%88%90%E5%99%A8Two_Stage_CoT%E7%89%88.ipynb",
+      "focus": ["先拆解", "後執行", "兩階段規劃"],
+      "used_in": ["W03"]
+    },
+    {
+      "id": "S06",
+      "title": "RAG 01：打造你的 RAG 系統",
+      "type": "課堂 Notebook",
+      "url": "https://colab.research.google.com/github/yenlung/Generative-AI/blob/main/RAG_01_%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84_RAG_%E7%B3%BB%E7%B5%B1.ipynb",
+      "focus": ["資料擷取", "metadata", "FAISS", "完整性檢查"],
+      "used_in": ["W01", "W06"]
+    }
+  ]
+}

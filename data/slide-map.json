@@ -1,0 +1,14 @@
+{
+  "slides": [
+    {"number": 1, "title": "一張照片，真的能變成遊戲嗎？", "wiki_ids": ["W01"], "source_ids": ["S01"]},
+    {"number": 2, "title": "直接叫 AI 出題，會發生什麼？", "wiki_ids": ["W01", "W04"], "source_ids": ["S01", "S03"]},
+    {"number": 3, "title": "Agent 不只是一個模型", "wiki_ids": ["W04", "W06"], "source_ids": ["S03"]},
+    {"number": 4, "title": "先把照片變成場景資料", "wiki_ids": ["W01", "W02"], "source_ids": ["S01", "S02"]},
+    {"number": 5, "title": "先規劃，再寫線索", "wiki_ids": ["W03"], "source_ids": ["S02", "S05"]},
+    {"number": 6, "title": "能用規則確認的，交給程式", "wiki_ids": ["W04"], "source_ids": ["S02", "S03"]},
+    {"number": 7, "title": "失敗不是重來，而是帶著原因修改", "wiki_ids": ["W05"], "source_ids": ["S02", "S04"]},
+    {"number": 8, "title": "RoomQuest 的完整 graph", "wiki_ids": ["W01", "W03", "W04", "W05", "W06"], "source_ids": ["S01", "S02", "S03", "S04", "S05"]},
+    {"number": 9, "title": "紅色物品為什麼不夠？", "wiki_ids": ["W02", "W04"], "source_ids": ["S02"]},
+    {"number": 10, "title": "可驗證生成，不等於保證正確", "wiki_ids": ["W04", "W06"], "source_ids": ["S03", "S06"]}
+  ]
+}

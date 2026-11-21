@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RoomQuest Agent Wiki：六個可追溯的生成式 AI Agent 知識單元。">
+  <title>LLM Wiki｜RoomQuest Agent Wiki</title><link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="../index.html">RoomQuest Agent Wiki<small>KNOWLEDGE BASE</small></a><nav class="site-nav" aria-label="主要導覽"><a href="../index.html">首頁</a><a href="./" aria-current="page">Wiki</a><a href="../slides.html">教學簡報</a><a href="../workflow.html">流程與紀錄</a><a href="https://github.com/lyixuan0718/roomquest-agent-wiki">GitHub</a></nav></header>
+  <main class="wrap">
+    <header class="page-intro"><p class="eyebrow">6 sources → 6 reusable notes</p><h1>RoomQuest <span class="mark">LLM Wiki</span></h1><p class="lead">這裡不是課堂講義的複製，而是針對「可驗證生成」重新整理的知識單元。選擇左側主題，查看概念、RoomQuest 應用、限制與檢查問題。</p></header>
+    <div class="wiki-layout">
+      <aside class="wiki-menu" role="tablist" aria-label="Wiki 條目">
+        <button class="active" role="tab" aria-selected="true" data-wiki-target="W01">W01 Context 與 Grounding</button>
+        <button role="tab" aria-selected="false" data-wiki-target="W02">W02 結構化場景資料</button>
+        <button role="tab" aria-selected="false" data-wiki-target="W03">W03 兩階段規劃</button>
+        <button role="tab" aria-selected="false" data-wiki-target="W04">W04 Python Verifier</button>
+        <button role="tab" aria-selected="false" data-wiki-target="W05">W05 Reflection Loop</button>
+        <button role="tab" aria-selected="false" data-wiki-target="W06">W06 人工核准與可追溯性</button>
+      </aside>
+      <div>
+        <article class="wiki-entry active" data-wiki-entry="W01"><p class="eyebrow">W01 · Context Engineering</p><h2>Context 與 Grounding</h2><h3>核心概念</h3><p>模型不應憑自己的記憶猜測場景，而要使用目前任務提供的可靠上下文。RAG 的基本思路是先取得相關資料，再把資料交給模型；但檢索結果相似，不代表內容必然正確或足以回答。</p><h3>在 RoomQuest 裡</h3><p>只把主持人確認過的場景資料交給 Planner。未出現在場景 JSON 的物品不能出現在關卡中；照片解析失敗時，可切換到人工輸入，後續流程仍能繼續。</p><h3>限制</h3><p>場景 JSON 是封閉世界。程式能確認的是「在已記錄資料中唯一」，不能保證照片之外沒有另一個相似物品。</p><div class="checklist"><b>檢查自己是否理解</b><ul><li>敘述能否對回場景資料？</li><li>來源是否明確？</li><li>是否把檢索相似誤當正確？</li></ul></div><div class="source-box"><span class="tag">S01 課堂講義 07</span><span class="tag">S06 RAG 01 Notebook</span></div></article>
+        <article class="wiki-entry" data-wiki-entry="W02"><p class="eyebrow">W02 · JSON as contract</p><h2>結構化場景資料</h2><h3>核心概念</h3><p>自然語言適合給人閱讀，JSON 適合讓程式檢查欄位與條件。場景資料必須具有穩定 ID，才能讓關卡指向某個物品，而不是只留一段難以驗證的文字。</p><h3>在 RoomQuest 裡</h3><div class="code-card">{<br>&nbsp; "id": "obj_07",<br>&nbsp; "category": "水壺",<br>&nbsp; "use": "裝水",<br>&nbsp; "color": "紅色",<br>&nbsp; "region": "窗邊",<br>&nbsp; "dynamic": false<br>}</div><p>關卡另外保存 <code>target_id</code>、<code>constraints</code> 與 <code>answer_source</code>，讓驗證器可以逐欄檢查。</p><h3>限制</h3><p>結構化不會自動消除辨識錯誤。時鐘、螢幕和可能移動的物品，仍應標記為會變動，避免作為穩定答案。</p><div class="checklist"><b>檢查自己是否理解</b><ul><li>每個物品是否有穩定 ID？</li><li>條件能否直接由程式比對？</li><li>答案來源是否固定？</li></ul></div><div class="source-box"><span class="tag">S01 課堂講義 07</span><span class="tag">S02 課堂講義 08</span></div></article>
+        <article class="wiki-entry" data-wiki-entry="W03"><p class="eyebrow">W03 · Planning</p><h2>兩階段規劃</h2><h3>核心概念</h3><p>課堂的 Two-Stage CoT 先產生多個理由，再挑選內容寫成文章；RoomQuest 將同一模式改成「先規劃關卡結構，再寫玩家看到的線索」。</p><div class="mini-flow"><div class="concept info"><strong>第一階段</strong>選物品、答案來源、順序與依賴</div><div class="concept good"><strong>程式先檢查</strong>結構錯誤不必等文案寫完才發現</div><div class="concept"><strong>第二階段</strong>撰寫故事、線索與分層提示</div></div><h3>限制</h3><p>Planner 仍可能選錯目標，所以只能從 Python 先計算出的候選物品中選擇。</p><div class="checklist"><b>檢查自己是否理解</b><ul><li>結構與文案是否分開產生？</li><li>關卡是否使用尚未取得的資訊？</li><li>答案是否有清楚來源？</li></ul></div><div class="source-box"><span class="tag">S02 課堂講義 08</span><span class="tag">S05 Two-Stage CoT Notebook</span></div></article>
+        <article class="wiki-entry" data-wiki-entry="W04"><p class="eyebrow">W04 · Deterministic checks</p><h2>Python Verifier</h2><h3>核心概念</h3><p>AI Model 負責有彈性的生成，Harness 負責限制、工具與停止條件。能明確寫成規則的問題，應交給程式，而不是再請另一個模型猜一次。</p><h3>六項檢查</h3><div class="three"><div class="concept"><strong>存在</strong>目標 ID 在場景中</div><div class="concept"><strong>唯一</strong>條件只命中一物</div><div class="concept"><strong>順序</strong>依賴沒有倒置</div><div class="concept"><strong>安全</strong>動作在白名單</div><div class="concept"><strong>穩定</strong>答案不會變動</div><div class="concept"><strong>格式</strong>JSON schema 合規</div></div><h3>限制</h3><p>規則只能檢查已建模的資料，也不能完全判斷自然語言是否令人誤解，因此仍需要人工出口。</p><div class="checklist"><b>檢查自己是否理解</b><ul><li>驗證失敗是否指出欄位與原因？</li><li>程式是否擅自替模型補資料？</li><li>檢查範圍是否被誠實說明？</li></ul></div><div class="source-box"><span class="tag">S02 課堂講義 08</span><span class="tag">S03 課堂講義 09</span></div></article>
+        <article class="wiki-entry" data-wiki-entry="W05"><p class="eyebrow">W05 · Review and revise</p><h2>Reflection Loop</h2><h3>核心概念</h3><p>Reflection 是產生第一版、審查、提供具體建議、再修改。回饋不能只說「不好」，要說清楚哪一個規則失敗，以及模型應修改哪一部分。</p><div class="code-card">AMBIGUOUS_TARGET<br>obj_03 與 obj_08 都符合<br>請增加可由場景資料驗證的條件</div><h3>在 RoomQuest 裡</h3><p>AI 只重寫未通過的關卡，修改後重新驗證。最多兩次；若仍不通過，就停止自動迴圈，交給主持人處理。</p><h3>限制</h3><p>Reflection 不代表一定會修對。原始規格與程式檢查優先，修改後不能跳過驗證。</p><div class="checklist"><b>檢查自己是否理解</b><ul><li>回饋是否具體到可以修改？</li><li>是否只重寫失敗部分？</li><li>是否有重試上限？</li></ul></div><div class="source-box"><span class="tag">S02 課堂講義 08</span><span class="tag">S04 Reflection Notebook</span></div></article>
+        <article class="wiki-entry" data-wiki-entry="W06"><p class="eyebrow">W06 · Traceability</p><h2>人工核准與可追溯性</h2><h3>核心概念</h3><p>可靠流程不只保存結果，也保存來源、轉換方式與檢查紀錄。RAG 教材將正文、metadata、索引對照與設定分開保存，讓結果能追溯與重現。</p><h3>在 RoomQuest 裡</h3><p>主持人預覽場景 JSON、關卡結構、驗證報告和修改紀錄，再決定核准、手動修改或重新生成。玩家只取得核准後的遊戲，遊玩中不臨時呼叫 AI。</p><h3>限制</h3><p>人工核准增加操作成本，但能處理照片漏拍、現場變動和語意歧義。MVP 的目標是降低人工負擔，而不是假裝完全自動。</p><div class="checklist"><b>檢查自己是否理解</b><ul><li>能否由投影片回到 Wiki 與來源？</li><li>是否保存失敗原因與修改次數？</li><li>未完成能力是否清楚標示？</li></ul></div><div class="source-box"><span class="tag">S03 課堂講義 09</span><span class="tag">S06 RAG 01 Notebook</span></div></article>
+      </div>
+    </div>
+  </main>
+  <footer class="footer"><div class="wrap">所有條目皆為本作業的教學整理；來源登記與 Wiki 原始 Markdown 可在 GitHub 查看。</div></footer>
+  <script src="../assets/app.js"></script>
+</body></html>

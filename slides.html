@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="教學 HTML 簡報：AI 出題、程式驗題。">
+  <title>教學簡報｜AI 出題、程式驗題</title><link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="deck-page">
+  <main class="deck-shell">
+    <header class="deck-top"><a class="deck-title" href="index.html">RoomQuest Agent Wiki</a><div class="progress" aria-label="簡報進度"><span></span></div><span class="deck-counter">01 / 10</span></header>
+    <div class="slides" aria-live="polite">
+      <section class="slide active"><div class="slide-inner"><p class="slide-kicker">ROOMQUEST · 01</p><h1>一張照片，真的能變成<span class="mark">解謎遊戲</span>嗎？</h1><p class="big">答案不是「請 AI 隨便出題」，而是先把真實場景變成能被查驗的資料，再讓生成與驗證輪流工作。</p><div class="source-chips"><span class="tag">W01 Context 與 Grounding</span><span class="tag">S01</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">問題 · 02</p><h2>直接叫 AI 出題，會發生什麼？</h2><div class="three"><div class="concept bad"><strong>憑空出現</strong>線索引用照片裡不存在的物品。</div><div class="concept bad reveal"><strong>條件不唯一</strong>「窗邊的紅色東西」可能同時指水壺與書包。</div><div class="concept bad reveal"><strong>答案會改變</strong>時鐘、螢幕或可移動物品讓答案失效。</div></div><p class="big reveal" style="margin-top:28px"><b>這些不是文案問題，而是流程沒有提供限制與檢查。</b></p><div class="source-chips"><span class="tag">W01</span><span class="tag">W04</span><span class="tag">S01</span><span class="tag">S03</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">核心觀念 · 03</p><h2>Agent 不只是一個模型</h2><div class="formula">AI Agent = AI Model + Harness</div><div class="split" style="margin-top:38px"><div class="concept info"><strong>AI Model</strong>理解照片、規劃關卡、撰寫線索與提示。</div><div class="concept good reveal"><strong>Harness</strong>提供資料、限制動作、呼叫工具、驗證輸出、決定何時停止。</div></div><div class="source-chips"><span class="tag">W04</span><span class="tag">W06</span><span class="tag">S03</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">GROUNDING · 04</p><div class="split"><div><h2>先把照片變成場景資料</h2><p class="big">自然語言很靈活；JSON 讓每個物品有 ID，也讓顏色、用途、區域與是否會變動都能被程式讀取。</p></div><div class="code-card">{<br>&nbsp; "id": "obj_07",<br>&nbsp; "category": "水壺",<br>&nbsp; "use": "裝水",<br>&nbsp; "color": "紅色",<br>&nbsp; "region": "窗邊",<br>&nbsp; "dynamic": false<br>}</div></div><p class="big reveal" style="margin-top:28px"><b>規則：</b>不在場景 JSON 裡的物品，不能被拿來出題。</p><div class="source-chips"><span class="tag">W01</span><span class="tag">W02</span><span class="tag">S01</span><span class="tag">S02</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">PLANNING · 05</p><h2>先規劃，再寫線索</h2><div class="mini-flow"><div class="concept info"><strong>第一階段</strong>決定目標物品、答案來源、順序與依賴。</div><div class="concept good reveal"><strong>結構檢查</strong>先確認計畫可用，不急著寫漂亮文案。</div><div class="concept reveal"><strong>第二階段</strong>撰寫故事、正式線索與分層提示。</div></div><p class="big reveal" style="margin-top:30px">分開做的好處：即使文案很漂亮，也不能掩蓋一條根本無法完成的關卡。</p><div class="source-chips"><span class="tag">W03 兩階段規劃</span><span class="tag">S02</span><span class="tag">S05</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">TOOL USE · 06</p><h2>能用規則確認的，交給程式</h2><div class="three"><div class="concept"><strong>存在</strong>物品 ID 確實存在</div><div class="concept"><strong>唯一</strong>條件只命中一物</div><div class="concept"><strong>順序</strong>關卡依賴沒有倒置</div><div class="concept reveal"><strong>安全</strong>動作在允許清單</div><div class="concept reveal"><strong>穩定</strong>答案不會隨時間改變</div><div class="concept reveal"><strong>格式</strong>JSON 欄位符合規格</div></div><div class="source-chips"><span class="tag">W04 Python Verifier</span><span class="tag">S02</span><span class="tag">S03</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">REFLECTION · 07</p><h2>失敗不是重來，而是帶著原因修改</h2><div class="split"><div class="code-card">錯誤：AMBIGUOUS_TARGET<br>obj_03 與 obj_08 都符合<br><br>要求：增加可驗證條件<br>範圍：只改第 2 關</div><div><div class="concept bad"><strong>第一次</strong>「找到窗邊的紅色東西。」</div><div class="concept good reveal" style="margin-top:18px"><strong>修改後</strong>「找到窗邊可以裝水的紅色物品。」</div></div></div><p class="big reveal" style="margin-top:26px">最多修改兩次；仍不通過就停止，交給主持人。</p><div class="source-chips"><span class="tag">W05 Reflection Loop</span><span class="tag">S02</span><span class="tag">S04</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">GRAPH · 08</p><h2>RoomQuest 的完整 graph</h2><div class="mini-flow"><div class="concept info"><strong>① 取得與確認</strong>照片 → 場景 JSON → 主持人修正</div><div class="concept reveal"><strong>② 規劃與生成</strong>候選物品 → 關卡鏈 → 線索提示</div><div class="concept good reveal"><strong>③ 驗證與核准</strong>程式檢查 ⇄ 指定關卡重寫 → 人工核准</div></div><div class="formula reveal" style="margin-top:34px;font-size:clamp(20px,3vw,38px)">核准的 game.json → 玩家遊玩（不再呼叫 AI）</div><div class="source-chips"><span class="tag">W01</span><span class="tag">W03</span><span class="tag">W04</span><span class="tag">W05</span><span class="tag">W06</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">CASE · 09</p><h2>「紅色物品」為什麼不夠？</h2><div class="split"><div><div class="concept bad"><strong>條件 A</strong>窗邊 + 紅色<br><br>符合：紅色水壺、紅色書包<br><b>結果：2 個，不通過</b></div></div><div class="reveal"><div class="concept good"><strong>條件 B</strong>窗邊 + 紅色 + 可以裝水<br><br>符合：紅色水壺<br><b>結果：1 個，通過</b></div></div></div><p class="big reveal" style="margin-top:28px">唯一性不是請 AI 說「看起來沒問題」，而是用全部場景物品實際篩選。</p><div class="source-chips"><span class="tag">W02</span><span class="tag">W04</span><span class="tag">S02</span></div></div></section>
+
+      <section class="slide"><div class="slide-inner"><p class="slide-kicker">LIMITS · 10</p><h2>可驗證生成，<span class="mark">不等於</span>保證正確</h2><div class="three"><div class="concept good"><strong>可以攔下</strong>不存在、資料內不唯一、答案會變動、危險動作。</div><div class="concept bad reveal"><strong>仍可能漏掉</strong>照片外物品、現場移動、玩家對文字的不同理解。</div><div class="concept info reveal"><strong>所以保留</strong>來源追蹤、重試上限、主持人核准與人工備案。</div></div><p class="big reveal" style="margin-top:32px"><b>RoomQuest 的重點：</b>讓創意交給 AI，讓可以確認的部分留下證據。</p><div class="actions"><a class="btn secondary" href="wiki/">回到 Wiki 查來源</a><a class="btn" href="workflow.html">看實際 loop 與反思</a></div><div class="source-chips"><span class="tag">W04</span><span class="tag">W06</span><span class="tag">S03</span><span class="tag">S06</span></div></div></section>
+    </div>
+    <footer class="deck-bottom"><span class="help">方向鍵翻頁 · 空白鍵逐步揭示 · Home / End 跳到首尾</span><div class="deck-controls"><button type="button" data-prev>上一頁</button><button type="button" data-next>下一步</button></div></footer>
+  </main>
+  <script src="assets/app.js"></script>
+</body></html>
