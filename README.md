@@ -4,10 +4,10 @@
 
 ## 公開成果
 
-- 專案入口：`index.html`
-- LLM Wiki：`wiki/index.html`
-- 教學 HTML 簡報：`slides.html`
-- Loop / Graph 與執行紀錄：`workflow.html`
+- 專案入口：https://lyixuan0718.github.io/roomquest-agent-wiki/
+- LLM Wiki：https://lyixuan0718.github.io/roomquest-agent-wiki/wiki/
+- 教學 HTML 簡報：https://lyixuan0718.github.io/roomquest-agent-wiki/slides.html
+- Loop / Graph 與執行紀錄：https://lyixuan0718.github.io/roomquest-agent-wiki/workflow.html
 
 ## 本次知識流程
 
