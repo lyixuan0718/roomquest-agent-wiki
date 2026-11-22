@@ -6,6 +6,7 @@
 
 ## 內容原則
 
+- 建立新一輪 Wiki 前，先在 `logs/discussion-XX.md` 記錄主題範圍、來源選擇、條目拆分與捨棄內容；討論完成後才能生成。
 - 先讀 `data/source-register.json`，只使用登記過的來源。
 - Wiki 條目不得冒充講義原文；必須標示為針對本專案整理的摘要。
 - 每個 Wiki 條目最少對應一個 `source_id`。
@@ -21,6 +22,7 @@
 - `workflow.html`：loop / graph、執行紀錄與反思。
 - `wiki/*.md`：可供 AI 讀取與重組的知識單元。
 - `logs/*.md`：每次實際執行的紀錄。
+- `logs/discussion-*.md`：生成前的討論與收斂決策。
 
 ## 新增 Wiki 條目
 
@@ -50,6 +52,7 @@
 - `python scripts/validate_project.py` 通過。
 - `node --check assets/app.js` 通過。
 - 來源數不少於 5，且每張投影片可追溯到 Wiki。
+- 至少有一份生成前討論紀錄，並在 workflow 與繳交說明中連結。
 - 四個 HTML 頁面可直接由相對路徑開啟。
 - 沒有 `TODO`、假連結或未標示的未完成功能。
 

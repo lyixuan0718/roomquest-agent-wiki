@@ -19,11 +19,14 @@
 5. Demo07c Two-Stage CoT
 6. RAG 01：打造你的 RAG 系統
 
+正式生成 Wiki 前，我先和 AI 討論題目定位、來源選擇、條目拆分以及哪些內容應捨棄或延後。原本有 8 個候選條目，討論後把「照片解析」併入場景資料、把 Harness 落實到 Verifier 與人工核准，最後收斂為 6 個條目。完整紀錄位於 `logs/discussion-01.md`。
+
 ## 2. LLM Wiki 連結或成果
 
 - LLM Wiki：https://lyixuan0718.github.io/roomquest-agent-wiki/wiki/
 - GitHub Repository：https://github.com/lyixuan0718/roomquest-agent-wiki
 - 來源登記：Repository 內的 `data/source-register.json`
+- 生成前討論：https://github.com/lyixuan0718/roomquest-agent-wiki/blob/main/logs/discussion-01.md
 
 Wiki 共包含 6 個條目，每個條目都有來源編號、核心概念、RoomQuest 應用、限制與檢查問題。投影片和 Wiki 的對應另外記錄在 `data/slide-map.json`，可由投影片回到 Wiki，再由 Wiki 回到 ingest 的資料。
 
@@ -39,7 +42,7 @@ https://lyixuan0718.github.io/roomquest-agent-wiki/slides.html
 
 流程為：
 
-> Ingest 資料 → Normalize 內容 → Source Check → 建立 Wiki → 查詢 Wiki → 規劃簡報大綱 → Traceability Check → 產生與檢查 HTML 簡報
+> 先討論與收斂 → Ingest 資料 → Normalize 內容 → Source Check → 建立 Wiki → 查詢 Wiki → 規劃簡報大綱 → Traceability Check → 產生與檢查 HTML 簡報
 
 有兩個會重複執行的 loop：
 
@@ -50,11 +53,11 @@ https://lyixuan0718.github.io/roomquest-agent-wiki/slides.html
 
 ## 5. 一次實際執行結果與檢查紀錄
 
-本次實際 ingest 3 份 PDF 與 3 份 Notebook，共 6 份資料。第一次 Normalize 時發現兩個問題：PDF 轉成純文字後，部分中文受到投影片版面影響而斷裂；Notebook 如果只讀 Markdown，會漏掉 writer／reviewer 和兩階段函式等實際執行邏輯。
+本次先完成一份生成前討論紀錄，再 ingest 3 份 PDF 與 3 份 Notebook，共 6 份資料。第一次 Normalize 時發現兩個問題：PDF 轉成純文字後，出現「換你當　闆」「AI　作現場」「我們做事的　法」等斷裂片段；Notebook 如果只讀 Markdown，只會看到「設定作者和審查員」，會漏掉 code cells 裡 writer／reviewer 串接及兩階段函式的實際邏輯。
 
 第二次執行改成先定位 PDF 中的概念段落，並同時核對 Notebook 的 Markdown 與 code cells。修正後產生 6 個 Wiki 條目與 10 張投影片。專案驗證程式最後檢查：來源數是否至少 5 份、Wiki 是否包含 source_ids、所有來源與 Wiki ID 是否存在、每張投影片是否至少對應一個 Wiki 條目，以及 4 個 HTML 頁面是否完整。檢查結果為：`PASS sources=6 wiki=6 slides=10 pages=4`。
 
-完整執行紀錄位於 `logs/run-01.md`，公開頁面也列出 7 筆主要紀錄。
+因此第二次執行改為用關鍵詞定位 PDF 概念段落後回到原頁核對，並同時讀取 Notebook 的 Markdown 與 code cells。完整原始片段與修正方式記錄於 `logs/run-01.md`；公開 workflow 頁面列出 9 筆主要紀錄，包含原本缺少的 Retrieve 節點。
 
 ## 6. 反思與流程調整
 

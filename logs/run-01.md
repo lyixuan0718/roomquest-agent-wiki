@@ -8,10 +8,12 @@
 
 | 節點 | 輸入 | 檢查 | 結果 |
 |---|---|---|---|
+| Discuss | 主題需求與候選資料 | 題目是否生活化、能對應課程、不是成熟產品的簡化版 | 通過；收斂為 6 個條目 |
 | Ingest | 3 PDF + 3 Notebook | 檔案可讀、數量 >= 5 | 通過 |
 | Normalize v1 | PDF 全文、Notebook markdown | 中文完整、流程概念完整 | 不通過 |
 | Normalize v2 | 概念段落 + Notebook code cells | 標題、正文、來源 ID、核心流程 | 通過 |
 | Build Wiki | 6 份正規化資料 | 每頁有來源、限制、檢查問題 | 通過，產出 W01–W06 |
+| Retrieve | 教學問題 + 6 個 Wiki 條目 | 取回內容是否能回答目前投影片的教學目標 | 通過；每頁取用 1–5 個條目 |
 | Outline | 6 個 Wiki 條目 | 初學者可依序理解 | 通過，產出 10 頁結構 |
 | Trace Check | slide-map.json | 每頁至少有 1 個 wiki_id，ID 皆存在 | 通過 |
 | HTML Review | 4 個 HTML 頁面 | 連結、互動、手機版、JS 語法 | 通過 |
@@ -20,6 +22,33 @@
 
 1. PDF 轉純文字後，某些中文字會因投影片排版而斷裂。全文仍適合定位概念，但不適合直接複製成 Wiki。
 2. Reflection 與 Two-Stage CoT notebook 的 markdown 只說明任務；作者、審查者及兩階段呼叫的具體流程在 code cells 裡。只讀 markdown 會得到不完整知識。
+
+## 原始片段（保留第一次失敗的證據）
+
+PDF 第一次抽出的片段不是可直接使用的完整句子，例如：
+
+```text
+換你當   闆：Agentic Work 與 AI   作現場
+老
+            工
+回憶我們 AI Agents 的定義
+就是教 AI「我們做事的 法」做事情。
+AI Agent = AI Model + Harness
+```
+
+可以看出英文關鍵詞仍在，但「老闆」「工作」「方法」被版面拆散。因此 v2 不直接摘要整份純文字，而是用關鍵詞定位段落，再回到原始頁面核對。
+
+Notebook 第一次只讀到 Markdown 的「設定作者和審查員」，沒有讀到兩者如何串接。檢查 code cells 後才取得實際流程：
+
+```python
+# Step 2: Reviewer 給建議
+suggestion = reply(system_reviewer, first_version, ...)
+
+# Step 3: Writer 根據建議產出第二版
+second_prompt = f"第一版：{first_version}\n修改建議：{suggestion}"
+```
+
+這個差異使 Source Check 必須在建立 Wiki 之前完成。
 
 ## 調整
 

@@ -109,7 +109,7 @@ h1 .mark, .mark { box-shadow: inset 0 -.38em var(--yellow); }
 .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin: 30px 0; }
 .flow-node { position: relative; min-height: 150px; padding: 20px; border: 3px solid var(--line); border-radius: 18px; background: var(--paper-2); }
 .flow-node::after { content: ""; position: absolute; top: 50%; right: -20px; width: 20px; border-top: 3px solid var(--line); }
-.flow-node:nth-child(4)::after, .flow-node:last-child::after { display: none; }
+.flow-node:nth-child(4)::after, .flow-node:nth-child(8)::after, .flow-node:last-child::after { display: none; }
 .flow-node.check { background: var(--green-soft); }.flow-node.ai { background: #eee8ff; }.flow-node.data { background: var(--blue-soft); }
 .flow-node b { display: block; margin-bottom: 6px; font-size: 20px; }
 .flow-node small { color: var(--muted); }
@@ -160,7 +160,7 @@ body.deck-page { min-height: 100vh; overflow: hidden; background-image: none; }
   .cards, .three { grid-template-columns: 1fr; }
   .fact-strip { grid-template-columns: 1fr; }.fact + .fact { border-left: 0; border-top: 2px dashed rgba(47,83,104,.35); }
   .wiki-menu { position: static; display: flex; overflow-x: auto; gap: 4px; }.wiki-menu button { min-width: 190px; }
-  .flow { grid-template-columns: 1fr 1fr; }.flow-node:nth-child(2)::after { display: none; }
+  .flow { grid-template-columns: 1fr 1fr; }.flow-node:nth-child(2n)::after { display: none; }
   .mini-flow { grid-template-columns: 1fr; }.mini-flow .concept:not(:last-child)::after { display: none; }
   .slide { padding: 24px; align-content: start; }.slide-inner { padding: 10px 0 30px; }
   .help { display: none; }

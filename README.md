@@ -11,13 +11,16 @@
 
 ## 本次知識流程
 
-1. Ingest：讀取 6 份課程資料。
-2. Normalize：擷取標題、正文與可追溯的來源編號。
-3. Check：確認每筆資料有內容、來源和可用概念。
-4. Build Wiki：整理成 6 個可重複使用的知識條目。
-5. Retrieve & Outline：依教學問題挑選條目並規劃投影片。
-6. Traceability Check：檢查每張投影片都能對回 Wiki 與來源。
-7. Generate & Review：產生 HTML 簡報，檢查順序、可讀性與互動。
+1. Discuss：先討論主題、來源、條目拆分與捨棄內容。
+2. Ingest：讀取 6 份課程資料。
+3. Normalize：擷取標題、正文與可追溯的來源編號。
+4. Check：確認每筆資料有內容、來源和可用概念。
+5. Build Wiki：整理成 6 個可重複使用的知識條目。
+6. Retrieve & Outline：依教學問題挑選條目並規劃投影片。
+7. Traceability Check：檢查每張投影片都能對回 Wiki 與來源。
+8. Generate & Review：產生 HTML 簡報，檢查順序、可讀性與互動。
+
+生成前的討論紀錄：[`logs/discussion-01.md`](logs/discussion-01.md)
 
 ## 本機檢查
 

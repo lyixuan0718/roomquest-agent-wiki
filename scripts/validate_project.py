@@ -76,6 +76,19 @@ for relative in required_pages:
     if "TODO" in text:
         fail(f"頁面仍有 TODO：{relative}")
 
+discussion = ROOT / "logs/discussion-01.md"
+if not discussion.exists():
+    fail("缺少生成前討論紀錄 logs/discussion-01.md")
+discussion_text = discussion.read_text(encoding="utf-8")
+for heading in ("為什麼選 RoomQuest", "為什麼選這 6 份資料", "Wiki 條目如何決定", "捨棄或延後的內容"):
+    if heading not in discussion_text:
+        fail(f"討論紀錄缺少段落：{heading}")
+
+workflow_text = (ROOT / "workflow.html").read_text(encoding="utf-8")
+for required_term in ("Discuss", "Retrieve", "discussion-01.md"):
+    if required_term not in workflow_text:
+        fail(f"workflow.html 缺少：{required_term}")
+
 slide_html = (ROOT / "slides.html").read_text(encoding="utf-8")
 slide_sections = re.findall(r'<section class="slide(?: active)?">', slide_html)
 if len(slide_sections) != 10:

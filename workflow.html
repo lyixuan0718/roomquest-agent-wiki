@@ -11,16 +11,25 @@
     <section class="wrap page-intro"><p class="eyebrow">從來源到投影片，不跳步</p><h1>Loop / Graph 與<span class="mark">實際執行</span></h1><p class="lead">這個流程把最容易出錯的「資料整理」檢查提前，並在 Wiki 與投影片之間增加可追溯性檢查。</p></section>
 
     <section class="section"><div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">先討論、後生成</p><h2>Wiki 不是一開始就直接產生</h2></div><p class="section-note">先決定為什麼選這些資料、知識要怎麼拆，以及哪些內容不放進主線。</p></div>
+      <div class="loop-panel">
+        <article class="note"><h3>討論前的候選</h3><p>最初曾比較 RoomQuest 與斷捨離助手，也列出照片解析、Harness、Embedding 模擬玩家等 8 個候選條目。</p></article>
+        <article class="note good"><h3>討論後的收斂</h3><p>選擇能直接支撐課程主線的 6 份資料與 6 個 Wiki 條目；未實作或需要額外實驗的內容移到延伸，不寫成現有能力。</p><p><a class="card-link" href="https://github.com/lyixuan0718/roomquest-agent-wiki/blob/main/logs/discussion-01.md">查看完整 discussion-01.md</a></p></article>
+      </div>
+    </div></section>
+
+    <section class="section"><div class="wrap">
       <div class="section-head"><div><p class="eyebrow">完整 graph</p><h2>取得、整理、檢查、生成</h2></div><p class="section-note">綠色節點是程式或人工檢查。未通過時，只退回前一個負責的節點，不從頭全部重做。</p></div>
       <div class="flow">
-        <div class="flow-node data"><b>1. Ingest</b><small>讀取 3 份 PDF 與 3 份 notebook</small></div>
-        <div class="flow-node ai"><b>2. Normalize</b><small>擷取正文、標題、metadata 與來源 ID</small></div>
-        <div class="flow-node check"><b>3. Source Check</b><small>內容是否可讀、可追溯且與主題相關？</small></div>
-        <div class="flow-node ai"><b>4. Build Wiki</b><small>合併重複概念，形成六個知識單元</small></div>
-        <div class="flow-node data"><b>5. Retrieve</b><small>依教學問題挑選相關 Wiki 條目</small></div>
-        <div class="flow-node ai"><b>6. Outline</b><small>安排問題、概念、案例、限制的順序</small></div>
-        <div class="flow-node check"><b>7. Trace Check</b><small>每張投影片能否回到 Wiki 與來源？</small></div>
-        <div class="flow-node"><b>8. HTML Slides</b><small>產生、檢查、修正教學簡報</small></div>
+        <div class="flow-node"><b>1. Discuss</b><small>比較題目、選擇資料、拆分與合併知識條目</small></div>
+        <div class="flow-node data"><b>2. Ingest</b><small>讀取 3 份 PDF 與 3 份 notebook</small></div>
+        <div class="flow-node ai"><b>3. Normalize</b><small>擷取正文、標題、metadata 與來源 ID</small></div>
+        <div class="flow-node check"><b>4. Source Check</b><small>內容是否可讀、可追溯且與主題相關？</small></div>
+        <div class="flow-node ai"><b>5. Build Wiki</b><small>合併重複概念，形成六個知識單元</small></div>
+        <div class="flow-node data"><b>6. Retrieve</b><small>依教學問題挑選相關 Wiki 條目</small></div>
+        <div class="flow-node ai"><b>7. Outline</b><small>安排問題、概念、案例、限制的順序</small></div>
+        <div class="flow-node check"><b>8. Trace Check</b><small>每張投影片能否回到 Wiki 與來源？</small></div>
+        <div class="flow-node"><b>9. HTML Slides</b><small>產生、檢查、修正教學簡報</small></div>
       </div>
       <div class="loop-panel">
         <article class="note alert"><h3>Loop A：來源不合格</h3><p><b>Source Check 不通過</b> → 回到 Normalize，調整擷取規則或改讀 notebook 的 code cells → 再檢查。目的：不要等簡報寫完才發現資料根本不能用。</p></article>
@@ -31,11 +40,13 @@
     <section class="section"><div class="wrap">
       <div class="section-head"><div><p class="eyebrow">Run 01 · 2026-11-21</p><h2>一次實際執行紀錄</h2></div><p class="section-note">這不是理想化的示意流程，而是這次專案真正遇到的錯誤與調整。</p></div>
       <div class="note log">
+        <div class="log-row"><span>09:00</span><span>先討論題目、6 份來源與 Wiki 架構；把 8 個候選條目收斂成 6 個。</span><span class="status-ok">通過</span></div>
         <div class="log-row"><span>09:20</span><span>登記 6 份資料，確認 PDF 與 notebook 都可讀取。</span><span class="status-ok">通過</span></div>
         <div class="log-row"><span>09:27</span><span>PDF 文字擷取保留概念，但部分中文字因版面而斷裂；不能直接把全文當 Wiki。</span><span class="status-fix">需修正</span></div>
         <div class="log-row"><span>09:34</span><span>Notebook 只擷取 markdown 時，Reflection 與 Planning 的執行邏輯不完整。</span><span class="status-fix">需修正</span></div>
         <div class="log-row"><span>09:42</span><span>改為先找概念段落，再核對 code cells 的 writer / reviewer 與兩階段函式。</span><span class="status-ok">通過</span></div>
         <div class="log-row"><span>10:05</span><span>建立 6 個 Wiki 條目，逐項加入 source_ids、限制與檢查問題。</span><span class="status-ok">通過</span></div>
+        <div class="log-row"><span>10:18</span><span>依每頁教學目標查詢 Wiki，確認取回條目足以支撐投影片內容。</span><span class="status-ok">通過</span></div>
         <div class="log-row"><span>10:28</span><span>建立 10 張投影片對照表；驗證每頁至少連到一個 Wiki 條目。</span><span class="status-ok">通過</span></div>
         <div class="log-row"><span>10:50</span><span>檢查 JSON、Markdown front matter、HTML 路徑與 JavaScript 語法。</span><span class="status-ok">通過</span></div>
       </div>
@@ -51,5 +62,5 @@
       <div class="note good" style="margin-top:26px"><h3>為什麼這樣設計？</h3><p>錯誤越晚發現，重做範圍越大。把來源檢查移到 Wiki 生成前，可以只重做擷取；把追溯檢查放在 HTML 生成前，可以只修改大綱或缺少的條目。兩個 loop 都有明確返回點，不會無限重生整份成果。</p></div>
     </div></section>
   </main>
-  <footer class="footer"><div class="wrap">詳細文字紀錄：<a href="https://github.com/lyixuan0718/roomquest-agent-wiki/blob/main/logs/run-01.md">logs/run-01.md</a></div></footer>
+  <footer class="footer"><div class="wrap">生成前討論：<a href="https://github.com/lyixuan0718/roomquest-agent-wiki/blob/main/logs/discussion-01.md">logs/discussion-01.md</a>　｜　執行紀錄：<a href="https://github.com/lyixuan0718/roomquest-agent-wiki/blob/main/logs/run-01.md">logs/run-01.md</a></div></footer>
 </body></html>
