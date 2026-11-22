@@ -21,7 +21,7 @@
 ## 發現的問題
 
 1. PDF 轉純文字後，某些中文字會因投影片排版而斷裂。全文仍適合定位概念，但不適合直接複製成 Wiki。
-2. Reflection 與 Two-Stage CoT notebook 的 markdown 只說明任務；作者、審查者及兩階段呼叫的具體流程在 code cells 裡。只讀 markdown 會得到不完整知識。
+2. Reflection Notebook 的 Markdown 已列出 writer 初稿、reviewer 建議、writer 第二版等 5 步概念流程；但「把第一版和建議組成新的 prompt，再交給 writer」的具體串接方式在 code cells 裡。Two-Stage CoT 的 Markdown 也說明了先思考、後產文，但 code cells 才能核對兩次模型呼叫如何傳遞結果。
 
 ## 原始片段（保留第一次失敗的證據）
 
@@ -38,14 +38,16 @@ AI Agent = AI Model + Harness
 
 可以看出英文關鍵詞仍在，但「老闆」「工作」「方法」被版面拆散。因此 v2 不直接摘要整份純文字，而是用關鍵詞定位段落，再回到原始頁面核對。
 
-Notebook 第一次只讀到 Markdown 的「設定作者和審查員」，沒有讀到兩者如何串接。檢查 code cells 後才取得實際流程：
+Notebook 的 Markdown 已說明完整 5 步流程，也包含「設定作者和審查員」標題；但沒有呈現第一版文字與 reviewer 建議如何被組成下一次呼叫的 prompt。檢查 code cells 後才確認具體串接方式。
+
+以下為節錄、簡化版本，用來保留資料流，並非逐字複製完整函式參數與 prompt：
 
 ```python
 # Step 2: Reviewer 給建議
 suggestion = reply(system_reviewer, first_version, ...)
 
 # Step 3: Writer 根據建議產出第二版
-second_prompt = f"第一版：{first_version}\n修改建議：{suggestion}"
+second_prompt = f"這是我剛剛寫的貼文：\n{first_version}\n\n這是修改建議：\n{suggestion}\n\n請根據這些建議產出第二版。"
 ```
 
 這個差異使 Source Check 必須在建立 Wiki 之前完成。

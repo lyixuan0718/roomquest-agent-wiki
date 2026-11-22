@@ -53,11 +53,11 @@ https://lyixuan0718.github.io/roomquest-agent-wiki/slides.html
 
 ## 5. 一次實際執行結果與檢查紀錄
 
-本次先完成一份生成前討論紀錄，再 ingest 3 份 PDF 與 3 份 Notebook，共 6 份資料。第一次 Normalize 時發現兩個問題：PDF 轉成純文字後，出現「換你當　闆」「AI　作現場」「我們做事的　法」等斷裂片段；Notebook 如果只讀 Markdown，只會看到「設定作者和審查員」，會漏掉 code cells 裡 writer／reviewer 串接及兩階段函式的實際邏輯。
+本次先完成一份生成前討論紀錄，再 ingest 3 份 PDF 與 3 份 Notebook，共 6 份資料。第一次 Normalize 時發現兩個問題：PDF 轉成純文字後，出現「換你當　闆」「AI　作現場」「我們做事的　法」等斷裂片段；Notebook 的 Markdown 已說明 writer 寫初稿、reviewer 給建議、writer 產出第二版的流程，但「把第一版和建議組成新的 prompt 再交給 writer」的具體做法只出現在 code cells 裡。
 
 第二次執行改成先定位 PDF 中的概念段落，並同時核對 Notebook 的 Markdown 與 code cells。修正後產生 6 個 Wiki 條目與 10 張投影片。專案驗證程式最後檢查：來源數是否至少 5 份、Wiki 是否包含 source_ids、所有來源與 Wiki ID 是否存在、每張投影片是否至少對應一個 Wiki 條目，以及 4 個 HTML 頁面是否完整。檢查結果為：`PASS sources=6 wiki=6 slides=10 pages=4`。
 
-因此第二次執行改為用關鍵詞定位 PDF 概念段落後回到原頁核對，並同時讀取 Notebook 的 Markdown 與 code cells。完整原始片段與修正方式記錄於 `logs/run-01.md`；公開 workflow 頁面列出 9 筆主要紀錄，包含原本缺少的 Retrieve 節點。
+完整原始片段與修正方式記錄於 `logs/run-01.md`；公開 workflow 頁面列出 9 筆主要紀錄，包含原本缺少的 Retrieve 節點。
 
 ## 6. 反思與流程調整
 
